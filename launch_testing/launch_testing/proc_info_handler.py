@@ -100,14 +100,11 @@ class ActiveProcInfoHandler(ProcInfoHandler):
         with self._sync_lock:
             return self._proc_info_handler[key]
 
-    def assertWaitForShutdown(self,
-                              process,
-                              cmd_args=None,
-                              *,
-                              timeout=10):
-
-        success = False
-
+    def waitForShutdown(self,
+                        process,
+                        cmd_args=None,
+                        *,
+                        timeout=10):
         def proc_is_shutdown():
             try:
                 resolveProcesses(
@@ -126,4 +123,8 @@ class ActiveProcInfoHandler(ProcInfoHandler):
                 timeout=timeout
             )
 
+        return success
+
+    def assertWaitForShutdown(self, *args, **kwargs):
+        success = self.waitForShutdown(*args, **kwargs)
         assert success, "Timed out waiting for process '{}' to finish".format(process)
