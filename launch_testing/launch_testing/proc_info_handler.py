@@ -100,11 +100,13 @@ class ActiveProcInfoHandler(ProcInfoHandler):
         with self._sync_lock:
             return self._proc_info_handler[key]
 
-    def waitForShutdown(self,
-                        process,
-                        cmd_args=None,
-                        *,
-                        timeout=10):
+    def waitForShutdown(
+        self,
+        process,
+        cmd_args=None,
+        *,
+        timeout=10
+    ):
         def proc_is_shutdown():
             try:
                 resolveProcesses(
