@@ -99,7 +99,7 @@ def test_quoted_nested_substitution():
     assert subst[2].perform(None) == '_of_'
     assert subst[3].name[0].perform(None) == 'something '
     assert subst[3].name[1].perform(None) == '10'
-    assert subst[3].default_value[0].perform(None) == ''
+    assert subst[3].default_value is None
 
 
 def test_double_quoted_nested_substitution():
@@ -113,7 +113,7 @@ def test_double_quoted_nested_substitution():
     assert subst[0].name[1].perform(context) == '"asd_bds"'
     assert len(subst[0].default_value) == 2
     assert subst[0].default_value[0].name[0].perform(context) == 'DEFAULT'
-    assert subst[0].default_value[0].default_value[0].perform(context) == ''
+    assert subst[0].default_value[0].default_value is None
     assert subst[0].default_value[1].perform(context) == '_qsd'
 
 
@@ -128,7 +128,7 @@ def test_combining_quotes_nested_substitution():
     assert subst[0].name[1].perform(context) == "'asd_bds'"
     assert len(subst[0].default_value) == 2
     assert subst[0].default_value[0].name[0].perform(context) == 'DEFAULT'
-    assert subst[0].default_value[0].default_value[0].perform(context) == ''
+    assert subst[0].default_value[0].default_value is None
     assert subst[0].default_value[1].perform(context) == '_qsd'
 
 
@@ -145,9 +145,15 @@ def test_env_subst():
     assert isinstance(env, EnvironmentVariable)
     assert 'asd' == ''.join([x.perform(None) for x in env.name])
     assert 'bsd' == ''.join([x.perform(None) for x in env.default_value])
-    subst = parse_substitution('$(env asd)')
+    subst = parse_substitution("$(env asd '')")
     assert len(subst) == 1
     env = subst[0]
     assert isinstance(env, EnvironmentVariable)
     assert 'asd' == ''.join([x.perform(None) for x in env.name])
     assert '' == ''.join([x.perform(None) for x in env.default_value])
+    subst = parse_substitution('$(env asd)')
+    assert len(subst) == 1
+    env = subst[0]
+    assert isinstance(env, EnvironmentVariable)
+    assert 'asd' == ''.join([x.perform(None) for x in env.name])
+    assert env.default_value is None
