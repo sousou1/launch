@@ -29,7 +29,7 @@ class Parser(frontend.Parser):
     @classmethod
     def load(
         cls,
-        file: Union[str, io.TextIOBase],
+        file,
     ) -> (Entity, 'Parser'):
         """Return entity loaded from XML file."""
         return (Entity(ET.parse(file).getroot()), cls())

@@ -35,9 +35,9 @@ class UnsetEnvironmentVariable(Action):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
+        name,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = normalize_to_list_of_substitutions(name)
@@ -45,8 +45,8 @@ class UnsetEnvironmentVariable(Action):
     @classmethod
     def parse(
         cls,
-        entity: Entity,
-        parser: Parser,
+        entity,
+        parser,
     ):
         """Parse a 'set_env' entity."""
         _, kwargs = super().parse(entity, parser)
@@ -54,11 +54,11 @@ class UnsetEnvironmentVariable(Action):
         return cls, kwargs
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for the name of the environment variable to be unset."""
         return self.__name
 
-    def execute(self, context: LaunchContext) -> None:
+    def execute(self, context):
         """Execute the action."""
         name = perform_substitutions(context, self.name)
         if name in os.environ:

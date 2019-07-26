@@ -50,7 +50,7 @@ class TestLaunchTestRunnerValidation(unittest.TestCase):
     def test_too_many_arguments(self):
 
         dut = LaunchTestRunner(
-            make_test_run_for_dut(lambda ready_fn, extra_arg: None)
+            make_test_run_for_dut(lambda ready_fn, extra_arg)
         )
 
         with self.assertRaisesRegex(Exception, "unexpected extra argument 'extra_arg'"):

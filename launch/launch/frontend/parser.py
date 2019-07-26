@@ -79,20 +79,20 @@ class Parser:
                 for entry_point in iter_entry_points('launch.frontend.parser')
             }
 
-    def parse_action(self, entity: Entity) -> (Action, Tuple[Any]):
+    def parse_action(self, entity) -> (Action, Tuple[Any]):
         """Parse an action, using its registered parsing method."""
         self.load_launch_extensions()
         return instantiate_action(entity, self)
 
-    def parse_substitution(self, value: Text) -> SomeSubstitutionsType:
+    def parse_substitution(self, value):
         """Parse a substitution."""
         return parse_substitution(value)
 
-    def escape_characters(self, value: Text) -> SomeSubstitutionsType:
+    def escape_characters(self, value):
         """Escape characters in strings."""
         return replace_escaped_characters(value)
 
-    def parse_description(self, entity: Entity) -> 'LaunchDescription':
+    def parse_description(self, entity):
         """Parse a launch description."""
         # Avoid recursive import
         from ..launch_description import LaunchDescription  # noqa: F811
@@ -102,7 +102,7 @@ class Parser:
         return LaunchDescription(actions)
 
     @classmethod
-    def get_available_extensions(cls) -> List[Text]:
+    def get_available_extensions(cls):
         """Return the registered extensions."""
         cls.load_parser_implementations()
         return cls.frontend_parsers.keys()
@@ -110,8 +110,8 @@ class Parser:
     @classmethod
     def is_extension_valid(
         cls,
-        extension: Text,
-    ) -> bool:
+        extension,
+    ):
         """Return an entity loaded with a markup file."""
         cls.load_parser_implementations()
         return extension in cls.frontend_parsers
@@ -119,8 +119,8 @@ class Parser:
     @classmethod
     def get_parser_from_extension(
         cls,
-        extension: Text,
-    ) -> Optional[Type['Parser']]:
+        extension,
+    ):
         """Return an entity loaded with a markup file."""
         cls.load_parser_implementations()
         try:
@@ -131,7 +131,7 @@ class Parser:
     @classmethod
     def load(
         cls,
-        file: Union[str, io.TextIOBase],
+        file,
     ) -> (Entity, 'Parser'):
         """
         Parse an Entity from a markup language-based launch file.

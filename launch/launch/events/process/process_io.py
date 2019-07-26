@@ -22,7 +22,7 @@ class ProcessIO(RunningProcessEvent):
 
     name = 'launch.events.process.ProcessIO'
 
-    def __init__(self, *, text: bytes, fd: int, **kwargs) -> None:
+    def __init__(self, *, text, fd, **kwargs):
         """
         Constructor.
 
@@ -39,21 +39,21 @@ class ProcessIO(RunningProcessEvent):
         self.__from_stderr = fd == 2
 
     @property
-    def text(self) -> bytes:
+    def text(self):
         """Getter for text."""
         return self.__text
 
     @property
-    def from_stdin(self) -> bool:
+    def from_stdin(self):
         """Getter for from_stdin."""
         return self.__from_stdin
 
     @property
-    def from_stdout(self) -> bool:
+    def from_stdout(self):
         """Getter for from_stdout."""
         return self.__from_stdout
 
     @property
-    def from_stderr(self) -> bool:
+    def from_stderr(self):
         """Getter for from_stderr."""
         return self.__from_stderr

@@ -19,7 +19,7 @@ from typing import Tuple
 
 
 # This was copy/pasted from ros2launch.api to avoid a rclpy dependency in launch_testing
-def parse_launch_arguments(launch_arguments: List[Text]) -> List[Tuple[Text, Text]]:
+def parse_launch_arguments(launch_arguments):
     """Parse the given launch arguments from the command line, into list of tuples for launch."""
     parsed_launch_arguments = OrderedDict()  # type: ignore
     for argument in launch_arguments:

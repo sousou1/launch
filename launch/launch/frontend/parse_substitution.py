@@ -28,7 +28,7 @@ from .expose import instantiate_substitution
 from ..substitutions import TextSubstitution
 
 
-def replace_escaped_characters(data: Text) -> Text:
+def replace_escaped_characters(data):
     """Search escaped characters and replace them."""
     return re.sub(r'\\(.)', r'\1', data)
 

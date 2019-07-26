@@ -28,10 +28,10 @@ _logger = logging.getLogger(name='launch')
 class Shutdown(EmitEvent):
     """Action that shuts down a launched system by emitting Shutdown when executed."""
 
-    def __init__(self, *, reason: Text = 'reason not given', **kwargs):
+    def __init__(self, *, reason = 'reason not given', **kwargs):
         super().__init__(event=ShutdownEvent(reason=reason), **kwargs)
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         try:
             event = context.locals.event

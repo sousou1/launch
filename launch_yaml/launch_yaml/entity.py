@@ -30,28 +30,28 @@ class Entity(BaseEntity):
 
     def __init__(
         self,
-        element: dict,
-        type_name: Text = None,
+        element,
+        type_name = None,
         *,
-        parent: 'Entity' = None
-    ) -> Text:
+        parent = None
+    ):
         """Constructor."""
         self.__type_name = type_name
         self.__element = element
         self.__parent = parent
 
     @property
-    def type_name(self) -> Text:
+    def type_name(self):
         """Get Entity type."""
         return self.__type_name
 
     @property
-    def parent(self) -> Optional['Entity']:
+    def parent(self):
         """Get Entity parent."""
         return self.__parent
 
     @property
-    def children(self) -> List['Entity']:
+    def children(self):
         """Get the Entity's children."""
         if not type(self.__element) in (dict, list):
             raise TypeError('Expected a dict or list, got {}'.format(type(self.element)))
@@ -73,15 +73,11 @@ class Entity(BaseEntity):
 
     def get_attr(
         self,
-        name: Text,
+        name,
         *,
-        data_type: Any = str,
-        optional: bool = False
-    ) -> Optional[Union[
-        List[Union[int, str, float, bool]],
-        Union[int, str, float, bool],
-        List['Entity']
-    ]]:
+        data_type = str,
+        optional = False
+    ):
         """Access an attribute of the entity."""
         if name not in self.__element:
             if not optional:

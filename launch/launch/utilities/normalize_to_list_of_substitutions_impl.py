@@ -23,7 +23,7 @@ from ..some_substitutions_type import SomeSubstitutionsType
 from ..substitution import Substitution
 
 
-def normalize_to_list_of_substitutions(subs: SomeSubstitutionsType) -> List[Substitution]:
+def normalize_to_list_of_substitutions(subs):
     """Return a list of Substitutions given a variety of starting inputs."""
     # Avoid recursive import
     from ..substitutions import TextSubstitution

@@ -31,11 +31,11 @@ class FrontendLaunchDescriptionSource(LaunchDescriptionSource):
 
     def __init__(
         self,
-        launch_file_path: SomeSubstitutionsType,
+        launch_file_path,
         *,
-        method: str = 'interpreted frontend launch file',
-        parser: Type[Parser] = Parser
-    ) -> None:
+        method = 'interpreted frontend launch file',
+        parser = Parser
+    ):
         """
         Constructor.
 

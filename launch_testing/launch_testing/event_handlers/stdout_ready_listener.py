@@ -32,8 +32,8 @@ class StdoutReadyListener(OnProcessIO):
     def __init__(
         self,
         *,
-        target_action: Optional[ExecuteProcess] = None,
-        ready_txt: Text,
+        target_action = None,
+        ready_txt,
         actions: [SomeActionsType]
     ):
         self.__ready_txt = ready_txt

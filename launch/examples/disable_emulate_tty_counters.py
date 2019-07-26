@@ -37,7 +37,7 @@ def generate_launch_description():
     ld.add_action(launch.actions.SetLaunchConfiguration('emulate_tty', 'false'))
 
     # Wire up stdout from processes
-    def on_output(event: launch.Event) -> None:
+    def on_output(event: launch.Event):
         for line in event.text.decode().splitlines():
             print('[{}] {}'.format(
                 cast(launch.events.process.ProcessIO, event).process_name, line))

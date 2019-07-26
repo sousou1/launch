@@ -31,7 +31,7 @@ action_parse_methods = {}
 substitution_parse_methods = {}
 
 
-def instantiate_action(entity: 'Entity', parser: 'Parser') -> Action:
+def instantiate_action(entity, parser):
     """Call the registered parsing method for the `Entity`."""
     if entity.type_name not in action_parse_methods:
         raise RuntimeError('Unrecognized entity of the type: {}'.format(entity.type_name))
@@ -40,9 +40,9 @@ def instantiate_action(entity: 'Entity', parser: 'Parser') -> Action:
 
 
 def instantiate_substitution(
-    type_name: Text,
-    args: Optional[Iterable[SomeSubstitutionsType]] = None
-) -> Substitution:
+    type_name,
+    args = None
+):
     """Call the registered substitution parsing method, according to `args`."""
     if type_name not in substitution_parse_methods:
         raise RuntimeError(
@@ -52,7 +52,7 @@ def instantiate_substitution(
     return subst_type(**kwargs)
 
 
-def __expose_impl(name: Text, parse_methods_map: dict, exposed_type: Text):
+def __expose_impl(name, parse_methods_map, exposed_type):
     """
     Return a decorator for exposing a parsing method in a dictionary.
 
@@ -100,7 +100,7 @@ def __expose_impl(name: Text, parse_methods_map: dict, exposed_type: Text):
     return expose_impl_decorator
 
 
-def expose_substitution(name: Text):
+def expose_substitution(name):
     """
     Return a decorator for exposing a substitution.
 
@@ -109,7 +109,7 @@ def expose_substitution(name: Text):
     return __expose_impl(name, substitution_parse_methods, 'substitution')
 
 
-def expose_action(name: Text):
+def expose_action(name):
     """
     Return a decorator for exposing an action.
 

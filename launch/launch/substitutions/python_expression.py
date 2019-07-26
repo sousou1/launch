@@ -35,7 +35,7 @@ class PythonExpression(Substitution):
     be converted to a string with `str()`.
     """
 
-    def __init__(self, expression: SomeSubstitutionsType) -> None:
+    def __init__(self, expression) :
         """Constructor."""
         super().__init__()
 
@@ -56,15 +56,15 @@ class PythonExpression(Substitution):
         return cls, {'expression': data[0]}
 
     @property
-    def expression(self) -> List[Substitution]:
+    def expression(self):
         """Getter for expression."""
         return self.__expression
 
-    def describe(self) -> Text:
+    def describe(self) :
         """Return a description of this substitution as a string."""
         return 'PythonExpr({})'.format(' + '.join([sub.describe() for sub in self.expression]))
 
-    def perform(self, context: LaunchContext) -> Text:
+    def perform(self, context) :
         """Perform the substitution by evaluating the expression."""
         from ..utilities import perform_substitutions
         return str(eval(perform_substitutions(context, self.expression)))

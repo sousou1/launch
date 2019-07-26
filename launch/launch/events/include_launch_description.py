@@ -23,7 +23,7 @@ class IncludeLaunchDescription(Event):
 
     name = 'launch.events.IncludeLaunchDescription'
 
-    def __init__(self, launch_description: LaunchDescription) -> None:
+    def __init__(self, launch_description):
         """Constructor."""
         self.__launch_description = launch_description
 

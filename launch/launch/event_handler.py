@@ -38,7 +38,7 @@ class BaseEventHandler:
     `launch.substitutions.LocalSubstitution('event.name')`.
     """
 
-    def __init__(self, *, matcher: Callable[[Event], bool], handle_once: bool = False):
+    def __init__(self, *, matcher, handle_once = False):
         """
         Constructor.
 
@@ -73,11 +73,11 @@ class BaseEventHandler:
         """
         return None
 
-    def matches(self, event: Event) -> bool:
+    def matches(self, event):
         """Return True if the given event should be handled by this event handler."""
         return self.__matcher(event)
 
-    def describe(self) -> Tuple[Text, List[SomeActionsType]]:
+    def describe(self):
         """Return the description list with 0 as a string, and then LaunchDescriptionEntity's."""
         return (
             "{}(matcher='{}', handler='{}', handle_once={})".format(
@@ -89,7 +89,7 @@ class BaseEventHandler:
             []
         )
 
-    def handle(self, event: Event, context: 'LaunchContext') -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """
         Handle the given event.
 
@@ -105,10 +105,10 @@ class EventHandler(BaseEventHandler):
     def __init__(
         self,
         *,
-        matcher: Callable[[Event], bool],
-        entities: Optional[SomeActionsType] = None,
-        handle_once: bool = False
-    ) -> None:
+        matcher,
+        entities = None,
+        handle_once = False
+    ):
         """
         Constructor.
 
@@ -128,14 +128,14 @@ class EventHandler(BaseEventHandler):
         """Getter for entities."""
         return self.__entities
 
-    def describe(self) -> Tuple[Text, List[SomeActionsType]]:
+    def describe(self):
         """Return the description list with 0 as a string, and then LaunchDescriptionEntity's."""
         text, actions = super().describe()
         if self.entities:
             actions.extend(self.entities)
         return (text, actions)
 
-    def handle(self, event: Event, context: 'LaunchContext') -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """Handle the given event."""
         super().handle(event, context)
         return self.entities

@@ -31,12 +31,12 @@ class LogInfo(Action):
     """Action that logs a message when executed."""
 
     @overload
-    def __init__(self, *, msg: Text) -> None:
+    def __init__(self, *, msg):
         """Construct with just Text (unicode string)."""
         ...
 
     @overload  # noqa: F811
-    def __init__(self, *, msg: List[Union[Text, Substitution]]) -> None:
+    def __init__(self, *, msg):
         """Construct with list of Text and Substitutions."""
         ...
 
@@ -48,11 +48,11 @@ class LogInfo(Action):
         self.__logger = launch.logging.get_logger('launch.user')
 
     @property
-    def msg(self) -> List[Substitution]:
+    def msg(self):
         """Getter for self.__msg."""
         return self.__msg
 
-    def execute(self, context: LaunchContext) -> None:
+    def execute(self, context):
         """Execute the action."""
         self.__logger.info(
             ''.join([context.perform_substitution(sub) for sub in self.msg])

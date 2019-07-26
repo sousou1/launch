@@ -31,25 +31,25 @@ __TypesForGuessTuple = (
 )
 
 
-def check_is_list(data_type: Any) -> bool:
+def check_is_list(data_type):
     """Check if `data_type` is based on a `typing.List`."""
     return hasattr(data_type, '__origin__') and \
         data_type.__origin__ in (list, List)  # On Linux/Mac is List, on Windows is list.
 
 
-def check_is_union(data_type: Any) -> bool:
+def check_is_union(data_type):
     """Check if `data_type` is based on a `typing.Union`."""
     return hasattr(data_type, '__origin__') and \
         data_type.__origin__ is Union
 
 
-def check_is_list_entity(data_type: Any) -> bool:
+def check_is_list_entity(data_type):
     """Check if `data_type` is a `typing.List` with elements of `Entity` type or derived."""
     return check_is_list(data_type) and \
         issubclass(data_type.__args__[0], Entity)
 
 
-def get_tuple_of_types(data_type: Any) -> Tuple:
+def get_tuple_of_types(data_type) :
     """
     Normalize `data_type` to a tuple of types.
 
@@ -62,12 +62,12 @@ def get_tuple_of_types(data_type: Any) -> Tuple:
         return (data_type,)
 
 
-def check_valid_scalar_type(data_type: Any) -> bool:
+def check_valid_scalar_type(data_type) :
     """Check if `data_type` is a valid scalar type."""
     return all(data_type in __ScalarTypesTuple for x in get_tuple_of_types(data_type))
 
 
-def extract_type(data_type: Any) -> Tuple[Any, bool]:
+def extract_type(data_type):
     """
     Extract type information from type object.
 
@@ -100,7 +100,7 @@ def extract_type(data_type: Any) -> Tuple[Any, bool]:
     return (data_type, is_list)
 
 
-def check_type(value: Any, data_type: Any) -> bool:
+def check_type(value, data_type) :
     """
     Check if `value` is of `type`.
 
@@ -135,14 +135,14 @@ def check_type(value: Any, data_type: Any) -> bool:
     return False
 
 
-def coerce_to_bool(x: str) -> bool:
+def coerce_to_bool(x) :
     """Convert string to bool value."""
     if x.lower() in ('true', 'yes', 'on', '1', 'false', 'no', 'off', '0'):
         return x.lower() in ('true', 'yes', 'on', '1')
     raise ValueError()
 
 
-def coerce_to_str(x: str) -> str:
+def coerce_to_str(x) :
     """Strip outer quotes if we have them."""
     if x.startswith("'") and x.endswith("'"):
         return x[1:-1]
@@ -152,7 +152,7 @@ def coerce_to_str(x: str) -> str:
         return x
 
 
-def scalar_type_key(data_type: Any) -> int:
+def scalar_type_key(data_type) :
     """Get key. Used for sorting the scalar data_types."""
     keys = {
         int: 0,
@@ -163,7 +163,7 @@ def scalar_type_key(data_type: Any) -> int:
     return keys[data_type]
 
 
-def coerce_scalar(x: str, data_type: Any = None) -> Union[int, str, float, bool]:
+def coerce_scalar(x, data_type = None):
     """
     Convert string to int, flot, bool, str with the above conversion rules.
 
@@ -176,10 +176,10 @@ def coerce_scalar(x: str, data_type: Any = None) -> Union[int, str, float, bool]
         It can also be an iterable combining the above types, or `None`.
     """
     coercion_rules = {
-        str: coerce_to_str,
-        bool: coerce_to_bool,
-        int: int,
-        float: float,
+        str,
+        bool,
+        int,
+        float,
     }
     if data_type is None:
         conversions_to_try = __ScalarTypesTuple
@@ -195,18 +195,15 @@ def coerce_scalar(x: str, data_type: Any = None) -> Union[int, str, float, bool]
     raise ValueError('Not conversion is possible')
 
 
-def coerce_list(x: List[str], data_type: Any = None) -> List[Union[int, str, float, bool]]:
+def coerce_list(x, data_type = None):
     """Coerce each member of the list using `coerce_scalar` function."""
     return [coerce_scalar(i, data_type) for i in x]
 
 
 def get_typed_value(
-    value: Union[Text, List[Text]],
+    value,
     data_type: Any
-) -> Union[
-    List[Union[int, str, float, bool]],
-    Union[int, str, float, bool],
-]:
+):
     """
     Try to convert `value` to the type specified in `data_type`.
 

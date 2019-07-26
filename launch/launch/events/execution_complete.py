@@ -23,7 +23,7 @@ class ExecutionComplete(Event):
 
     name = 'launch.events.ExecutionComplete'
 
-    def __init__(self, *, action: Action) -> None:
+    def __init__(self, *, action):
         """Constructor."""
         self.__action = action
 

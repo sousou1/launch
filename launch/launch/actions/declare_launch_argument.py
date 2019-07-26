@@ -76,12 +76,12 @@ class DeclareLaunchArgument(Action):
 
     def __init__(
         self,
-        name: Text,
+        name,
         *,
-        default_value: Optional[SomeSubstitutionsType] = None,
-        description: Text = 'no description given',
+        default_value = None,
+        description = 'no description given',
         **kwargs
-    ) -> None:
+    ) :
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = name
@@ -102,8 +102,8 @@ class DeclareLaunchArgument(Action):
     @classmethod
     def parse(
         cls,
-        entity: Entity,
-        parser: 'Parser'
+        entity,
+        parser
     ):
         """Parse `arg` tag."""
         _, kwargs = super().parse(entity, parser)
@@ -117,21 +117,21 @@ class DeclareLaunchArgument(Action):
         return cls, kwargs
 
     @property
-    def name(self) -> Text:
+    def name(self) :
         """Getter for self.__name."""
         return self.__name
 
     @property
-    def default_value(self) -> Optional[List[Substitution]]:
+    def default_value(self):
         """Getter for self.__default_value."""
         return self.__default_value
 
     @property
-    def description(self) -> Text:
+    def description(self) :
         """Getter for self.__description."""
         return self.__description
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         if self.name not in context.launch_configurations:
             if self.default_value is None:

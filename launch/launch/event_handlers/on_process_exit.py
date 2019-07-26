@@ -46,11 +46,11 @@ class OnProcessExit(BaseEventHandler):
     def __init__(
         self,
         *,
-        target_action: 'ExecuteProcess' = None,
+        target_action = None,
         on_exit: Union[SomeActionsType,
                        Callable[[ProcessExited, LaunchContext], Optional[SomeActionsType]]],
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         from ..actions import ExecuteProcess  # noqa
         if not isinstance(target_action, (ExecuteProcess, type(None))):
@@ -87,7 +87,7 @@ class OnProcessExit(BaseEventHandler):
             else:
                 self.__actions_on_exit = [on_exit]
 
-    def handle(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """Handle the given event."""
         super().handle(event, context)
 
@@ -96,7 +96,7 @@ class OnProcessExit(BaseEventHandler):
         return self.__on_exit(cast(ProcessExited, event), context)
 
     @property
-    def handler_description(self) -> Text:
+    def handler_description(self):
         """Return the string description of the handler."""
         # TODO(jacobperron): revisit how to describe known actions that are passed in.
         #                    It would be nice if the parent class could output their description
@@ -106,7 +106,7 @@ class OnProcessExit(BaseEventHandler):
         return '{}'.format(self.__on_exit)
 
     @property
-    def matcher_description(self) -> Text:
+    def matcher_description(self):
         """Return the string description of the matcher."""
         if self.__target_action is None:
             return 'event == ProcessExited'

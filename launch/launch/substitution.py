@@ -24,7 +24,7 @@ if False:
 class Substitution:
     """Encapsulates a substitution to be performed at runtime."""
 
-    def describe(self) -> Text:
+    def describe(self):
         """
         Return a description of this substitution as a string.
 
@@ -34,7 +34,7 @@ class Substitution:
         return repr(self)
 
     # Note: LaunchContext is in a string here to break a circular import.
-    def perform(self, context: 'LaunchContext') -> Text:
+    def perform(self, context):
         """
         Perform the substitution, given the launch context, and return it as a string.
 

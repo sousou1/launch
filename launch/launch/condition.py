@@ -31,14 +31,14 @@ class Condition:
     If a predicate is not set when evaluated, False is returned.
     """
 
-    def __init__(self, *, predicate: Optional[Callable[[LaunchContext], bool]] = None) -> None:
+    def __init__(self, *, predicate = None):
         self._predicate = predicate
 
-    def describe(self) -> Text:
+    def describe(self):
         """Return a description of this Condition."""
         return self.__repr__()
 
-    def evaluate(self, context: LaunchContext) -> bool:
+    def evaluate(self, context):
         """Evaluate the condition."""
         if self._predicate is not None:
             return self._predicate(context)

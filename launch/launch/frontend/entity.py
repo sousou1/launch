@@ -25,31 +25,27 @@ class Entity:
     """Single item in the intermediate front_end representation."""
 
     @property
-    def type_name(self) -> Text:
+    def type_name(self) :
         """Get Entity type."""
         raise NotImplementedError()
 
     @property
-    def parent(self) -> Optional['Entity']:
+    def parent(self):
         """Get Entity parent."""
         raise NotImplementedError()
 
     @property
-    def children(self) -> List['Entity']:
+    def children(self):
         """Get the Entity's children."""
         raise NotImplementedError()
 
     def get_attr(
         self,
-        name: Text,
+        name,
         *,
-        data_type: Any = str,
-        optional: bool = False
-    ) -> Optional[Union[
-        List[Union[int, str, float, bool]],
-        Union[int, str, float, bool],
-        List['Entity']
-    ]]:
+        data_type = str,
+        optional = False
+    ):
         """
         Access an attribute of the entity.
 

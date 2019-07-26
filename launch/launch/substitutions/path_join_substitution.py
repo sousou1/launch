@@ -26,21 +26,21 @@ from ..substitution import Substitution
 class PathJoinSubstitution(Substitution):
     """Substitution that join paths, in a platform independent way."""
 
-    def __init__(self, substitutions: Iterable[SomeSubstitutionsType]) -> None:
+    def __init__(self, substitutions: Iterable[SomeSubstitutionsType]) :
         """Constructor."""
         from ..utilities import normalize_to_list_of_substitutions
         self.__substitutions = normalize_to_list_of_substitutions(substitutions)
 
     @property
-    def substitutions(self) -> Iterable[Substitution]:
+    def substitutions(self):
         """Getter for variable_name."""
         return self.__substitutions
 
-    def describe(self) -> Text:
+    def describe(self) :
         """Return a description of this substitution as a string."""
         return "LocalVar('{}')".format(' + '.join([s.describe() for s in self.substitutions]))
 
-    def perform(self, context: LaunchContext) -> Text:
+    def perform(self, context) :
         """Perform the substitution by retrieving the local variable."""
         performed_substitutions = [sub.perform(context) for sub in self.__substitutions]
         return os.path.join(*performed_substitutions)

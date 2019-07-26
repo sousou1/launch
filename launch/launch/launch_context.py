@@ -33,7 +33,7 @@ from .substitution import Substitution
 class LaunchContext:
     """Runtime context used by various launch entities when being visited or executed."""
 
-    def __init__(self, *, argv: Optional[Iterable[Text]] = None) -> None:
+    def __init__(self, *, argv = None):
         """
         Constructor.
 
@@ -63,7 +63,7 @@ class LaunchContext:
         """Getter for argv."""
         return self.__argv
 
-    def _set_is_shutdown(self, state: bool) -> None:
+    def _set_is_shutdown(self, state):
         self.__is_shutdown = state
 
     @property
@@ -71,7 +71,7 @@ class LaunchContext:
         """Getter for is_shutdown."""
         return self.__is_shutdown
 
-    def _set_asyncio_loop(self, loop: asyncio.AbstractEventLoop) -> None:
+    def _set_asyncio_loop(self, loop: asyncio.AbstractEventLoop):
         self.__asyncio_loop = loop
 
     @property
@@ -79,7 +79,7 @@ class LaunchContext:
         """Getter for asyncio_loop."""
         return self.__asyncio_loop
 
-    def add_completion_future(self, completion_future: asyncio.Future) -> None:
+    def add_completion_future(self, completion_future: asyncio.Future):
         """Add an asyncio.Future to the list of futures that the LaunchService will wait on."""
         self._completion_futures.append(completion_future)
 
@@ -92,7 +92,7 @@ class LaunchContext:
         self.__locals = self.__locals_stack.pop()
         self._clear_combined_locals_cache()
 
-    def extend_globals(self, extensions: Dict[Text, Any]) -> None:
+    def extend_globals(self, extensions):
         """
         Extend the context.locals object permanently with new members.
 
@@ -102,7 +102,7 @@ class LaunchContext:
         self.__globals.update(extensions)
         self._clear_combined_locals_cache()
 
-    def extend_locals(self, extensions: Dict[Text, Any]) -> None:
+    def extend_locals(self, extensions):
         """Extend the context.locals object with new members until popped."""
         self.__locals.update(extensions)
         self._clear_combined_locals_cache()
@@ -116,7 +116,7 @@ class LaunchContext:
             self.__combined_locals_cache.update(self.__locals)
         return self.__combined_locals_cache
 
-    def get_locals_as_dict(self) -> Dict[Text, Any]:
+    def get_locals_as_dict(self):
         """Access the context locals as a dictionary."""
         return self._get_combined_locals()
 
@@ -153,32 +153,32 @@ class LaunchContext:
         self.__launch_configurations = self.__launch_configurations_stack.pop()
 
     @property
-    def launch_configurations(self) -> Dict[Text, Text]:
+    def launch_configurations(self):
         """Getter for launch_configurations dictionary."""
         return self.__launch_configurations
 
-    def would_handle_event(self, event: Event) -> bool:
+    def would_handle_event(self, event):
         """Check whether an event would be handled or not."""
         return any(handler.matches(event) for handler in self._event_handlers)
 
-    def register_event_handler(self, event_handler: BaseEventHandler) -> None:
+    def register_event_handler(self, event_handler):
         """Register a event handler."""
         self._event_handlers.appendleft(event_handler)
 
-    def unregister_event_handler(self, event_handler: BaseEventHandler) -> None:
+    def unregister_event_handler(self, event_handler):
         """Unregister an event handler."""
         self._event_handlers.remove(event_handler)
 
-    def emit_event_sync(self, event: Event) -> None:
+    def emit_event_sync(self, event):
         """Emit an event synchronously."""
         self.__logger.debug("emitting event synchronously: '{}'".format(event.name))
         self._event_queue.put_nowait(event)
 
-    async def emit_event(self, event: Event) -> None:
+    async def emit_event(self, event):
         """Emit an event."""
         self.__logger.debug("emitting event: '{}'".format(event.name))
         await self._event_queue.put(event)
 
-    def perform_substitution(self, substitution: Substitution) -> Text:
+    def perform_substitution(self, substitution):
         """Perform substitution on given Substitution."""
         return substitution.perform(self)

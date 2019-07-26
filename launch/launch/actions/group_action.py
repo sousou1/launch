@@ -45,10 +45,10 @@ class GroupAction(Action):
         self,
         actions: Iterable[Action],
         *,
-        scoped: bool = True,
-        launch_configurations: Optional[Dict[SomeSubstitutionsType, SomeSubstitutionsType]] = None,
+        scoped = True,
+        launch_configurations = None,
         **left_over_kwargs
-    ) -> None:
+    ) :
         """Constructor."""
         super().__init__(**left_over_kwargs)
         self.__actions = actions
@@ -59,7 +59,7 @@ class GroupAction(Action):
             self.__launch_configurations = {}
 
     @classmethod
-    def parse(cls, entity: Entity, parser: Parser):
+    def parse(cls, entity, parser):
         """Return `GroupAction` action and kwargs for constructing it."""
         _, kwargs = super().parse(entity, parser)
         scoped = entity.get_attr('scoped', data_type=bool, optional=True)
@@ -68,7 +68,7 @@ class GroupAction(Action):
         kwargs['actions'] = [parser.parse_action(e) for e in entity.children]
         return cls, kwargs
 
-    def execute(self, context: LaunchContext) -> Optional[List[Action]]:
+    def execute(self, context):
         """Execute the action."""
         actions = []  # type: List[Action]
         actions += [SetLaunchConfiguration(k, v) for k, v in self.__launch_configurations.items()]

@@ -26,10 +26,10 @@ class PopLaunchConfigurations(Action):
     :py:class:`launch.actions.PushLaunchConfigurations` action.
     """
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs):
         """Constructor."""
         super().__init__(**kwargs)
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         context._pop_launch_configurations()

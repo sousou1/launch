@@ -35,7 +35,7 @@ class FindExecutable(Substitution):
     :raise: SubstitutionFailure when executable not found
     """
 
-    def __init__(self, *, name: SomeSubstitutionsType) -> None:
+    def __init__(self, *, name) :
         """Constructor."""
         super().__init__()
 
@@ -50,15 +50,15 @@ class FindExecutable(Substitution):
         return cls, {'name': data[0]}
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for name."""
         return self.__name
 
-    def describe(self) -> Text:
+    def describe(self) :
         """Return a description of this substitution as a string."""
         return 'FindExec({})'.format(' + '.join([sub.describe() for sub in self.name]))
 
-    def perform(self, context: LaunchContext) -> Text:
+    def perform(self, context) :
         """Perform the substitution by locating the executable on the PATH."""
         from ..utilities import perform_substitutions  # import here to avoid loop
         result = which(perform_substitutions(context, self.name))

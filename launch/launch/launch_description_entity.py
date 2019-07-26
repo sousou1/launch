@@ -54,7 +54,7 @@ class LaunchDescriptionEntity:
     the default implementation in this class does.
     """
 
-    def describe(self) -> Text:
+    def describe(self):
         """
         Return a description of this entity as a string.
 
@@ -63,7 +63,7 @@ class LaunchDescriptionEntity:
         """
         raise NotImplementedError()
 
-    def describe_sub_entities(self) -> List['LaunchDescriptionEntity']:
+    def describe_sub_entities(self):
         """
         Return a list of sub-entities which need to be described as well.
 
@@ -81,10 +81,7 @@ class LaunchDescriptionEntity:
         """
         return []
 
-    def describe_conditional_sub_entities(self) -> List[Tuple[
-        Text,  # text description of the condition
-        Iterable['LaunchDescriptionEntity'],  # list of conditional sub-entities
-    ]]:
+    def describe_conditional_sub_entities(self):
         """
         Return a list of condition descriptions and lists of sub-entities.
 
@@ -100,7 +97,7 @@ class LaunchDescriptionEntity:
         """
         return []
 
-    def visit(self, context: 'LaunchContext') -> Optional[List['LaunchDescriptionEntity']]:
+    def visit(self, context):
         """
         Visit the entity.
 
@@ -134,7 +131,7 @@ class LaunchDescriptionEntity:
         """
         return None
 
-    def get_asyncio_future(self) -> Optional[asyncio.Future]:
+    def get_asyncio_future(self):
         """
         Return an asyncio Future, or None if there are no on-going tasks.
 

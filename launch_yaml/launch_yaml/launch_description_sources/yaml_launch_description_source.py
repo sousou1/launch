@@ -25,8 +25,8 @@ class YAMLLaunchDescriptionSource(FrontendLaunchDescriptionSource):
 
     def __init__(
         self,
-        launch_file_path: SomeSubstitutionsType,
-    ) -> None:
+        launch_file_path,
+    ):
         """
         Constructor.
 

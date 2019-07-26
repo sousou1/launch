@@ -33,38 +33,34 @@ class Entity(BaseEntity):
         self,
         xml_element: ET.Element = None,
         *,
-        parent: 'Entity' = None
-    ) -> Text:
+        parent = None
+    ):
         """Construnctor."""
         self.__xml_element = xml_element
         self.__parent = parent
 
     @property
-    def type_name(self) -> Text:
+    def type_name(self):
         """Get Entity type."""
         return self.__xml_element.tag
 
     @property
-    def parent(self) -> Optional['Entity']:
+    def parent(self):
         """Get Entity parent."""
         return self.__parent
 
     @property
-    def children(self) -> List['Entity']:
+    def children(self):
         """Get the Entity's children."""
         return [Entity(item) for item in self.__xml_element]
 
     def get_attr(
         self,
-        name: Text,
+        name,
         *,
-        data_type: Any = str,
-        optional: bool = False
-    ) -> Optional[Union[
-        List[Union[int, str, float, bool]],
-        Union[int, str, float, bool],
-        List['Entity']
-    ]]:
+        data_type = str,
+        optional = False
+    ):
         """Access an attribute of the entity."""
         attr_error = AttributeError(
             'Attribute {} of type {} not found in Entity {}'.format(

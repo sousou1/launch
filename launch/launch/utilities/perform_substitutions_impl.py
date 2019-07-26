@@ -21,6 +21,6 @@ from ..launch_context import LaunchContext
 from ..substitution import Substitution
 
 
-def perform_substitutions(context: LaunchContext, subs: List[Substitution]) -> Text:
+def perform_substitutions(context, subs):
     """Resolve a list of Substitutions with a context into a single string."""
     return ''.join([context.perform_substitution(sub) for sub in subs])

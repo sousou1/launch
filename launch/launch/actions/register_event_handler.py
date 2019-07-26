@@ -32,16 +32,16 @@ class RegisterEventHandler(Action):
     place.
     """
 
-    def __init__(self, event_handler: BaseEventHandler, **kwargs) -> None:
+    def __init__(self, event_handler, **kwargs) :
         """Constructor."""
         super().__init__(**kwargs)
         self.__event_handler = event_handler
 
     @property
-    def event_handler(self) -> BaseEventHandler:
+    def event_handler(self) :
         """Getter for self.__event_handler."""
         return self.__event_handler
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         context.register_event_handler(self.__event_handler)

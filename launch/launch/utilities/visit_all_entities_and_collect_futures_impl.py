@@ -23,9 +23,9 @@ from ..launch_description_entity import LaunchDescriptionEntity
 
 
 def visit_all_entities_and_collect_futures(
-    entity: LaunchDescriptionEntity,
+    entity,
     context: LaunchContext
-) -> List[Tuple[LaunchDescriptionEntity, asyncio.Future]]:
+):
     """
     Visit given entity, as well as all sub-entities, and collect any futures.
 

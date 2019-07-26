@@ -39,17 +39,17 @@ class SetLaunchConfiguration(Action):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
-        value: SomeSubstitutionsType,
+        name,
+        value,
         **kwargs
-    ) -> None:
+    ) :
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = normalize_to_list_of_substitutions(name)
         self.__value = normalize_to_list_of_substitutions(value)
 
     @classmethod
-    def parse(cls, entity: Entity, parser: Parser):
+    def parse(cls, entity, parser):
         """Return `SetLaunchConfiguration` action and kwargs for constructing it."""
         name = parser.parse_substitution(entity.get_attr('name'))
         value = parser.parse_substitution(entity.get_attr('value'))
@@ -59,16 +59,16 @@ class SetLaunchConfiguration(Action):
         return cls, kwargs
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for self.__name."""
         return self.__name
 
     @property
-    def value(self) -> List[Substitution]:
+    def value(self):
         """Getter for self.__value."""
         return self.__value
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         context.launch_configurations[perform_substitutions(context, self.name)] = \
             perform_substitutions(context, self.value)

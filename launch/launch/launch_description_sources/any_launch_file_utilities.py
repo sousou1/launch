@@ -26,10 +26,10 @@ from ..launch_description import LaunchDescription
 
 
 def get_launch_description_from_any_launch_file(
-    launch_file_path: Text,
+    launch_file_path,
     *,
-    parser: Type[Parser] = Parser
-) -> LaunchDescription:
+    parser = Parser
+):
     """
     Load a given launch file (by path), and return the launch description from it.
 

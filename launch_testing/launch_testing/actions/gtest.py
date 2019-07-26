@@ -25,9 +25,9 @@ class GTest(Test):
     def __init__(
         self,
         *,
-        path: SomeSubstitutionsType,
+        path,
         **kwargs
-    ) -> None:
+    ) :
         """
         Constructor.
 

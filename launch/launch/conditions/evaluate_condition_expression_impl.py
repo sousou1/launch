@@ -26,7 +26,7 @@ VALID_TRUE_EXPRESSIONS = ['true', '1']
 VALID_FALSE_EXPRESSIONS = ['false', '0']
 
 
-def evaluate_condition_expression(context: LaunchContext, expression: List[Substitution]) -> bool:
+def evaluate_condition_expression(context, expression):
     """
     Expand an expression and then evaluate it as a condition, returing true or false.
 

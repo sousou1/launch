@@ -22,7 +22,7 @@ class ProcessStderr(ProcessIO):
 
     name = 'launch.events.process.ProcessStderr'
 
-    def __init__(self, *, text: bytes, **kwargs) -> None:
+    def __init__(self, *, text, **kwargs) :
         """
         Constructor.
 

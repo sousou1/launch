@@ -35,7 +35,7 @@ class OnShutdown(BaseEventHandler):
     """Convenience class for handling the launch shutdown event."""
 
     @overload
-    def __init__(self, *, on_shutdown: SomeActionsType, **kwargs) -> None:
+    def __init__(self, *, on_shutdown, **kwargs):
         """Overload which takes just actions."""
         ...
 
@@ -43,9 +43,9 @@ class OnShutdown(BaseEventHandler):
     def __init__(
         self,
         *,
-        on_shutdown: Callable[[Shutdown, 'LaunchContext'], Optional[SomeActionsType]],
+        on_shutdown,
         **kwargs
-    ) -> None:
+    ):
         """Overload which takes a callable to handle the shutdown."""
         ...
 
@@ -59,15 +59,15 @@ class OnShutdown(BaseEventHandler):
         # the correct signature for a handler in this case
         self.__on_shutdown = on_shutdown
         if not callable(on_shutdown):
-            self.__on_shutdown = (lambda event, context: on_shutdown)
+            self.__on_shutdown = (lambda event, context)
 
-    def handle(self, event: Event, context: 'LaunchContext') -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """Handle the given event."""
         super().handle(event, context)
         return self.__on_shutdown(cast(Shutdown, event), context)
 
     @property
-    def handler_description(self) -> Text:
+    def handler_description(self):
         """Return the string description of the handler."""
         # TODO(dhood): print known actions if they were passed in, like in OnProcessExit
         return '{}'.format(self.__on_shutdown)

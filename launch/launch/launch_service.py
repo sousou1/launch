@@ -68,9 +68,9 @@ class LaunchService:
     def __init__(
         self,
         *,
-        argv: Optional[Iterable[Text]] = None,
-        debug: bool = False
-    ) -> None:
+        argv = None,
+        debug = False
+    ):
         """
         Constructor.
 
@@ -121,7 +121,7 @@ class LaunchService:
         # Used to keep track of whether or not there were unexpected exceptions.
         self.__return_code = 0
 
-    def emit_event(self, event: Event) -> None:
+    def emit_event(self, event):
         """
         Emit an event synchronously and thread-safely.
 
@@ -139,7 +139,7 @@ class LaunchService:
                 # loop is not in use, synchronously emit the event, and it will be processed later
                 self.__context.emit_event_sync(event)
 
-    def include_launch_description(self, launch_description: LaunchDescription) -> None:
+    def include_launch_description(self, launch_description):
         """
         Evaluate a given LaunchDescription and visits all of its entities.
 
@@ -172,11 +172,11 @@ class LaunchService:
         number_of_entity_future_pairs += self._prune_and_count_context_completion_futures()
         return number_of_entity_future_pairs == 0 and self.__context._event_queue.empty()
 
-    async def _process_one_event(self) -> None:
+    async def _process_one_event(self):
         next_event = await self.__context._event_queue.get()
         await self.__process_event(next_event)
 
-    async def __process_event(self, event: Event) -> None:
+    async def __process_event(self, event):
         self.__logger.debug("processing event: '{}'".format(event))
         for event_handler in tuple(self.__context._event_handlers):
             if event_handler.matches(event):
@@ -203,7 +203,7 @@ class LaunchService:
                 #     'launch.LaunchService',
                 #     "processing event: '{}' x '{}'".format(event, event_handler))
 
-    async def __run_loop(self) -> None:
+    async def __run_loop(self):
         while True:
             # Check if we're idle, i.e. no on-going entities (actions) or events in the queue
             is_idle = self._is_idle()  # self._entity_future_pairs is pruned here
@@ -239,7 +239,7 @@ class LaunchService:
             else:
                 await process_one_event_task
 
-    def run(self, *, shutdown_when_idle=True) -> int:
+    def run(self, *, shutdown_when_idle=True):
         """
         Start the event loop and visit all entities of all included LaunchDescriptions.
 
@@ -378,7 +378,7 @@ class LaunchService:
 
         return self.__return_code
 
-    def __on_shutdown(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def __on_shutdown(self, event, context):
         self.__shutting_down = True
         self.__context._set_is_shutdown(True)
         return None
@@ -407,7 +407,7 @@ class LaunchService:
         self.__context._set_is_shutdown(True)
         return retval
 
-    def shutdown(self) -> None:
+    def shutdown(self):
         """
         Shutdown all on-going activities and then stop the asyncio run loop.
 

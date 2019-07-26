@@ -32,10 +32,10 @@ class LaunchDescriptionSource:
 
     def __init__(
         self,
-        launch_description: Optional[LaunchDescription] = None,
-        location: SomeSubstitutionsType = '<string>',
-        method: str = 'unspecified mechanism from a script',
-    ) -> None:
+        launch_description = None,
+        location = '<string>',
+        method = 'unspecified mechanism from a script',
+    ):
         """
         Constructor.
 
@@ -47,13 +47,13 @@ class LaunchDescriptionSource:
         :param location: the location from where this launch description was loaded if applicable
         :param method: the method by which the launch description was generated
         """
-        self.__launch_description: Optional[LaunchDescription] = launch_description
-        self.__expanded_location: Optional[Text] = None
-        self.__location: SomeSubstitutionsType = normalize_to_list_of_substitutions(location)
-        self.__method: str = method
+        self.__launch_description = launch_description
+        self.__expanded_location = None
+        self.__location = normalize_to_list_of_substitutions(location)
+        self.__method = method
         self.__logger = launch.logging.get_logger(__name__)
 
-    def try_get_launch_description_without_context(self) -> Optional[LaunchDescription]:
+    def try_get_launch_description_without_context(self):
         """
         Attempt to load the LaunchDescription without a context, return None if unsuccessful.
 
@@ -74,7 +74,7 @@ class LaunchDescriptionSource:
                 )
         return self.__launch_description
 
-    def get_launch_description(self, context: LaunchContext) -> LaunchDescription:
+    def get_launch_description(self, context):
         """Get the LaunchDescription, loading it if necessary."""
         if self.__expanded_location is None:
             self.__expanded_location = \
@@ -93,7 +93,7 @@ class LaunchDescriptionSource:
             )
 
     @property
-    def location(self) -> str:
+    def location(self):
         """
         Get the location of the launch description source as a string.
 
@@ -107,6 +107,6 @@ class LaunchDescriptionSource:
         return self.__expanded_location
 
     @property
-    def method(self) -> str:
+    def method(self):
         """Getter for self.__method."""
         return self.__method

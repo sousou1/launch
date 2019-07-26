@@ -26,10 +26,10 @@ InvalidFrontendLaunchFileError = InvalidFrontendLaunchFileError
 
 
 def get_launch_description_from_frontend_launch_file(
-    frontend_launch_file_path: Text,
+    frontend_launch_file_path,
     *,
-    parser: Type[Parser] = Parser
-) -> LaunchDescription:
+    parser = Parser
+):
     """Load a `LaunchDescription` from a declarative (markup based) launch file."""
     root_entity, parser = parser.load(frontend_launch_file_path)
     return parser.parse_description(root_entity)

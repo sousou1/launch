@@ -38,12 +38,12 @@ class OnProcessIO(BaseEventHandler):
     def __init__(
         self,
         *,
-        target_action: Optional['ExecuteProcess'] = None,
-        on_stdin: Callable[[ProcessIO], Optional[SomeActionsType]] = None,
-        on_stdout: Callable[[ProcessIO], Optional[SomeActionsType]] = None,
-        on_stderr: Callable[[ProcessIO], Optional[SomeActionsType]] = None,
+        target_action = None,
+        on_stdin = None,
+        on_stdout = None,
+        on_stderr = None,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         from ..actions import ExecuteProcess  # noqa
         if not isinstance(target_action, (ExecuteProcess, type(None))):
@@ -54,7 +54,7 @@ class OnProcessIO(BaseEventHandler):
         self.__on_stdout = on_stdout
         self.__on_stderr = on_stderr
 
-    def _matcher(self, event: Event) -> bool:
+    def _matcher(self, event):
         if not hasattr(event, '__class__'):
             raise RuntimeError("event '{}' unexpectedly not a class".format(event))
         return (
@@ -64,7 +64,7 @@ class OnProcessIO(BaseEventHandler):
             )
         )
 
-    def handle(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """Handle the given event."""
         super().handle(event, context)
 
@@ -78,7 +78,7 @@ class OnProcessIO(BaseEventHandler):
         return None
 
     @property
-    def handler_description(self) -> Text:
+    def handler_description(self):
         """Return the string description of the handler."""
         handlers = []
         if self.__on_stdin is not None:
@@ -91,7 +91,7 @@ class OnProcessIO(BaseEventHandler):
         return handlers_str
 
     @property
-    def matcher_description(self) -> Text:
+    def matcher_description(self):
         """Return the string description of the matcher."""
         if self.__target_action is None:
             return 'event issubclass of ProcessIO'

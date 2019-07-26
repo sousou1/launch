@@ -36,7 +36,7 @@ class Action(LaunchDescriptionEntity):
     executed given a :class:`launch.LaunchContext` at runtime.
     """
 
-    def __init__(self, *, condition: Optional[Condition] = None) -> None:
+    def __init__(self, *, condition = None):
         """
         Constructor.
 
@@ -49,7 +49,7 @@ class Action(LaunchDescriptionEntity):
         self.__condition = condition
 
     @staticmethod
-    def parse(entity: 'Entity', parser: 'Parser'):
+    def parse(entity, parser):
         """
         Return the `Action` action and kwargs for constructing it.
 
@@ -75,15 +75,15 @@ class Action(LaunchDescriptionEntity):
         return Action, kwargs
 
     @property
-    def condition(self) -> Optional[Condition]:
+    def condition(self):
         """Getter for condition."""
         return self.__condition
 
-    def describe(self) -> Text:
+    def describe(self):
         """Return a description of this Action."""
         return self.__repr__()
 
-    def visit(self, context: LaunchContext) -> Optional[List[LaunchDescriptionEntity]]:
+    def visit(self, context):
         """Override visit from LaunchDescriptionEntity so that it executes."""
         if self.__condition is None or self.__condition.evaluate(context):
             try:
@@ -101,7 +101,7 @@ class Action(LaunchDescriptionEntity):
                         context.emit_event_sync(event)
         return None
 
-    def execute(self, context: LaunchContext) -> Optional[List['Action']]:
+    def execute(self, context):
         """
         Execute the action.
 

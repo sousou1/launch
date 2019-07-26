@@ -24,11 +24,11 @@ from typing import Union
 
 
 def ensure_argument_type(
-    argument: Any,
-    types: Union[type, Iterable[type]],
-    argument_name: Text,
-    caller: Optional[Text] = None,
-) -> None:
+    argument,
+    types,
+    argument_name,
+    caller = None,
+) :
     """
     Ensure that the given argument is an instance of or subclass of one of the given types.
 
@@ -61,7 +61,7 @@ def ensure_argument_type(
             type(caller),
         ))
 
-    def check_argument(argument, type_var) -> bool:
+    def check_argument(argument, type_var) :
         result = False
         result |= isinstance(argument, type_var)
         if hasattr(argument, '__class__') and inspect.isclass(type_var):

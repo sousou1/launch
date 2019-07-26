@@ -62,12 +62,12 @@ class OpaqueCoroutine(Action):
 
     def __init__(
         self, *,
-        coroutine: Coroutine,
-        args: Optional[Iterable[Any]] = None,
-        kwargs: Optional[Dict[Text, Any]] = None,
-        ignore_context: bool = False,
+        coroutine,
+        args = None,
+        kwargs = None,
+        ignore_context = False,
         **left_over_kwargs
-    ) -> None:
+    ) :
         """Constructor."""
         super().__init__(**left_over_kwargs)
         if not asyncio.iscoroutinefunction(coroutine):
@@ -91,13 +91,13 @@ class OpaqueCoroutine(Action):
         self.__ignore_context = ignore_context  # type: bool
         self.__future = None  # type: Optional[asyncio.Future]
 
-    def __on_shutdown(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def __on_shutdown(self, event, context):
         """Cancel ongoing coroutine upon shutdown."""
         if self.__future is not None:
             self.__future.cancel()
         return None
 
-    def execute(self, context: LaunchContext) -> Optional[List[Action]]:
+    def execute(self, context):
         """Execute the action."""
         args = self.__args
         if not self.__ignore_context:
@@ -110,6 +110,6 @@ class OpaqueCoroutine(Action):
         )
         return None
 
-    def get_asyncio_future(self) -> Optional[asyncio.Future]:
+    def get_asyncio_future(self):
         """Return an asyncio Future, used to let the launch system know when we're done."""
         return self.__future

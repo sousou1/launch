@@ -30,7 +30,7 @@ class Parser(frontend.Parser):
     @classmethod
     def load(
         cls,
-        stream: Union[str, io.TextIOBase],
+        stream,
     ) -> (Entity, 'Parser'):
         """Return entity loaded from YAML file."""
         if isinstance(stream, str):

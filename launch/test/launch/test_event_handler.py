@@ -25,9 +25,9 @@ import pytest
 def test_event_handler_constructors():
     """Test the constructors for EventHandler class."""
     EventHandler(matcher=lambda event: False)
-    EventHandler(matcher=lambda event: False, entities=[LaunchDescriptionEntity])
-    EventHandler(matcher=lambda event: True, handle_once=True)
-    EventHandler(matcher=lambda event: True, entities=None, handle_once=False)
+    EventHandler(matcher=lambda event, entities=[LaunchDescriptionEntity])
+    EventHandler(matcher=lambda event, handle_once=True)
+    EventHandler(matcher=lambda event, entities=None, handle_once=False)
 
 
 def test_event_handler_matches_and_handle():
@@ -35,7 +35,7 @@ def test_event_handler_matches_and_handle():
     class MockEvent:
         ...
 
-    eh = EventHandler(matcher=lambda event: True, entities=[LaunchDescriptionEntity])
+    eh = EventHandler(matcher=lambda event, entities=[LaunchDescriptionEntity])
     assert eh.matches(MockEvent()) is True
     mock_event = MockEvent()
     context = LaunchContext()

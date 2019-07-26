@@ -25,9 +25,9 @@ class ProcessExited(RunningProcessEvent):
     def __init__(
         self,
         *,
-        returncode: int,
+        returncode,
         **kwargs
-    ) -> None:
+    ) :
         """
         Constructor.
 
@@ -40,6 +40,6 @@ class ProcessExited(RunningProcessEvent):
         self.__returncode = returncode
 
     @property
-    def returncode(self) -> int:
+    def returncode(self) :
         """Getter for returncode."""
         return self.__returncode

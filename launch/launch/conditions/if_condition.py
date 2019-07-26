@@ -35,13 +35,13 @@ class IfCondition(Condition):
     a valid condition expression.
     """
 
-    def __init__(self, predicate_expression: SomeSubstitutionsType) -> None:
+    def __init__(self, predicate_expression) :
         self.__predicate_expression = normalize_to_list_of_substitutions(predicate_expression)
         super().__init__(predicate=self._predicate_func)
 
-    def _predicate_func(self, context: LaunchContext) -> bool:
+    def _predicate_func(self, context) :
         return evaluate_condition_expression(context, self.__predicate_expression)
 
-    def describe(self) -> Text:
+    def describe(self) :
         """Return a description of this Condition."""
         return self.__repr__()

@@ -22,9 +22,9 @@ if False:
     from ...actions import ExecuteProcess  # noqa
 
 
-def matches_pid(pid: int) -> Callable[['ExecuteProcess'], bool]:
+def matches_pid(pid):
     """Return a matcher which matches based on the pid of the process."""
-    def matcher(action: 'ExecuteProcess') -> bool:
+    def matcher(action) :
         if action.process_details is None:
             # This can happen if the process in the action has not been started.
             return False
@@ -33,9 +33,9 @@ def matches_pid(pid: int) -> Callable[['ExecuteProcess'], bool]:
     return matcher
 
 
-def matches_name(name: Text) -> Callable[['ExecuteProcess'], bool]:
+def matches_name(name):
     """Return a matcher which matches based on the name of the ExecuteProcess action."""
-    def matcher(action: 'ExecuteProcess') -> bool:
+    def matcher(action) :
         if action.process_details is None:
             # This can happen if the process in the action has not been started.
             return False
@@ -44,7 +44,7 @@ def matches_name(name: Text) -> Callable[['ExecuteProcess'], bool]:
     return matcher
 
 
-def matches_executable(executable: Text) -> Callable[['ExecuteProcess'], bool]:
+def matches_executable(executable):
     """
     Return a matcher which matches based on the name of the executable for the process.
 
@@ -52,7 +52,7 @@ def matches_executable(executable: Text) -> Callable[['ExecuteProcess'], bool]:
     str.endswith().
     So, for example, 'ls' would match either 'ls .' or '/usr/bin/ls .'.
     """
-    def matcher(action: 'ExecuteProcess') -> bool:
+    def matcher(action) :
         if action.process_details is None:
             # This can happen if the process in the action has not been started.
             return False

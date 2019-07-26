@@ -35,10 +35,10 @@ class Test(ExecuteProcess):
     def __init__(
         self,
         *,
-        timeout: Optional[Union[float, SomeSubstitutionsType]] = None,
-        kill_timeout: Union[float, SomeSubstitutionsType] = 5.0,
+        timeout = None,
+        kill_timeout = 5.0,
         **kwargs
-    ) -> None:
+    ) :
         """
         Constructor.
 
@@ -56,12 +56,12 @@ class Test(ExecuteProcess):
         """Getter for timeout."""
         return self.__timeout
 
-    def __on_process_exit(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def __on_process_exit(self, event, context):
         """On shutdown event."""
         if self.__timer:
             self.__timer.cancel()
 
-    def execute(self, context: LaunchContext) -> Optional[List[Action]]:
+    def execute(self, context):
         """
         Execute the action.
 
