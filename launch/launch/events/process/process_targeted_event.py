@@ -28,7 +28,7 @@ class ProcessTargetedEvent(Event):
 
     name = 'launch.events.process.ProcessTargetedEvent'
 
-    def __init__(self, *, process_matcher: Callable[['ExecuteProcess'], bool]) -> None:
+    def __init__(self, *, process_matcher):
         """
         Constructor.
 
@@ -46,6 +46,6 @@ class ProcessTargetedEvent(Event):
         self.__process_matcher = process_matcher
 
     @property
-    def process_matcher(self) -> Callable[['ExecuteProcess'], bool]:
+    def process_matcher(self):
         """Getter for process_matcher."""
         return self.__process_matcher

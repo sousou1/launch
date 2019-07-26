@@ -36,19 +36,19 @@ class UnsetLaunchConfiguration(Action):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
+        name,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = normalize_to_list_of_substitutions(name)
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for self.__name."""
         return self.__name
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         key = perform_substitutions(context, self.name)
         if key in context.launch_configurations:

@@ -36,11 +36,11 @@ class OnIncludeLaunchDescription(EventHandler):
         )
 
     @property
-    def handler_description(self) -> Text:
+    def handler_description(self):
         """Return the string description of the handler."""
         return 'returns the launch_description in the event'
 
     @property
-    def matcher_description(self) -> Text:
+    def matcher_description(self):
         """Return the string description of the matcher."""
         return 'event issubclass of launch.events.IncludeLaunchDescription'

@@ -34,13 +34,13 @@ class RunningProcessEvent(Event):
     def __init__(
         self,
         *,
-        action: 'ExecuteProcess',
-        name: Text,
-        cmd: List[Text],
-        cwd: Optional[Text],
-        env: Optional[Dict[Text, Text]],
-        pid: int
-    ) -> None:
+        action,
+        name,
+        cmd,
+        cwd,
+        env,
+        pid
+    ):
         """
         Constructor.
 
@@ -59,36 +59,36 @@ class RunningProcessEvent(Event):
         self.__pid = pid
 
     @property
-    def action(self) -> 'ExecuteProcess':
+    def action(self):
         """Getter for action."""
         return self.__action
 
     @property
-    def execute_process_action(self) -> 'ExecuteProcess':
+    def execute_process_action(self):
         """Getter for execute_process_action."""
         return self.__action
 
     @property
-    def process_name(self) -> Text:
+    def process_name(self):
         """Getter for process_name."""
         return self.__name
 
     @property
-    def cmd(self) -> List[Text]:
+    def cmd(self):
         """Getter for cmd."""
         return self.__cmd
 
     @property
-    def cwd(self) -> Optional[Text]:
+    def cwd(self):
         """Getter for cwd."""
         return self.__cwd
 
     @property
-    def env(self) -> Optional[Dict[Text, Text]]:
+    def env(self):
         """Getter for env."""
         return self.__env
 
     @property
-    def pid(self) -> int:
+    def pid(self):
         """Getter for pid."""
         return self.__pid

@@ -58,24 +58,22 @@ class IncludeLaunchDescription(Action):
 
     def __init__(
         self,
-        launch_description_source: LaunchDescriptionSource,
+        launch_description_source,
         *,
-        launch_arguments: Optional[
-            Iterable[Tuple[SomeSubstitutionsType, SomeSubstitutionsType]]
-        ] = None
-    ) -> None:
+        launch_arguments = None
+    ):
         """Constructor."""
         super().__init__()
         self.__launch_description_source = launch_description_source
         self.__launch_arguments = launch_arguments
 
     @property
-    def launch_description_source(self) -> LaunchDescriptionSource:
+    def launch_description_source(self):
         """Getter for self.__launch_description_source."""
         return self.__launch_description_source
 
     @property
-    def launch_arguments(self) -> Iterable[Tuple[SomeSubstitutionsType, SomeSubstitutionsType]]:
+    def launch_arguments(self):
         """Getter for self.__launch_arguments."""
         if self.__launch_arguments is None:
             return []
@@ -92,12 +90,12 @@ class IncludeLaunchDescription(Action):
             launch_file_location = self.__launch_description_source.location
         return launch_file_location
 
-    def describe_sub_entities(self) -> List[LaunchDescriptionEntity]:
+    def describe_sub_entities(self):
         """Override describe_sub_entities from LaunchDescriptionEntity to return sub entities."""
         ret = self.__launch_description_source.try_get_launch_description_without_context()
         return [ret] if ret is not None else []
 
-    def visit(self, context: LaunchContext) -> List[LaunchDescriptionEntity]:
+    def visit(self, context):
         """Override visit to return an Entity rather than an action."""
         launch_description = self.__launch_description_source.get_launch_description(context)
         context.extend_locals({

@@ -32,10 +32,10 @@ class EnvironmentVariable(Substitution):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
+        name,
         *,
         default_value: SomeSubstitutionsType = ''
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__()
 
@@ -44,20 +44,20 @@ class EnvironmentVariable(Substitution):
         self.__default_value = normalize_to_list_of_substitutions(default_value)
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for name."""
         return self.__name
 
     @property
-    def default_value(self) -> List[Substitution]:
+    def default_value(self):
         """Getter for default_value."""
         return self.__default_value
 
-    def describe(self) -> Text:
+    def describe(self):
         """Return a description of this substitution as a string."""
         return 'EnvVar({})'.format(' + '.join([sub.describe() for sub in self.name]))
 
-    def perform(self, context: LaunchContext) -> Text:
+    def perform(self, context):
         """Perform the substitution by looking up the environment variable."""
         from ..utilities import perform_substitutions  # import here to avoid loop
         return os.environ.get(

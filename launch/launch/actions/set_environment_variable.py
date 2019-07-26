@@ -30,26 +30,26 @@ class SetEnvironmentVariable(Action):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
-        value: SomeSubstitutionsType,
+        name,
+        value,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = normalize_to_list_of_substitutions(name)
         self.__value = normalize_to_list_of_substitutions(value)
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for the name of the environment variable to be set."""
         return self.__name
 
     @property
-    def value(self) -> List[Substitution]:
+    def value(self):
         """Getter for the value of the environment variable to be set."""
         return self.__value
 
-    def execute(self, context: LaunchContext) -> None:
+    def execute(self, context):
         """Execute the action."""
         os.environ[perform_substitutions(context, self.name)] = \
             perform_substitutions(context, self.value)

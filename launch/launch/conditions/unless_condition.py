@@ -29,12 +29,12 @@ class UnlessCondition(IfCondition):
     condition expression evaluates to false.
     """
 
-    def __init__(self, predicate_expression: SomeSubstitutionsType) -> None:
+    def __init__(self, predicate_expression):
         super().__init__(predicate_expression)
 
-    def _predicate_func(self, context: LaunchContext) -> bool:
+    def _predicate_func(self, context):
         return not super()._predicate_func(context)
 
-    def describe(self) -> Text:
+    def describe(self):
         """Return a description of this Condition."""
         return self.__repr__()

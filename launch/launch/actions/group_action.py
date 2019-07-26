@@ -44,7 +44,7 @@ class GroupAction(Action):
         scoped: bool = True,
         launch_configurations: Optional[Dict[SomeSubstitutionsType, SomeSubstitutionsType]] = None,
         **left_over_kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**left_over_kwargs)
         self.__actions = actions
@@ -54,7 +54,7 @@ class GroupAction(Action):
         else:
             self.__launch_configurations = {}
 
-    def execute(self, context: LaunchContext) -> Optional[List[Action]]:
+    def execute(self, context: LaunchContext):
         """Execute the action."""
         actions = []  # type: List[Action]
         actions += [SetLaunchConfiguration(k, v) for k, v in self.__launch_configurations.items()]

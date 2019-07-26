@@ -22,7 +22,7 @@ class ProcessStdin(ProcessIO):
 
     name = 'launch.events.process.ProcessStdin'
 
-    def __init__(self, *, text: bytes, **kwargs) -> None:
+    def __init__(self, *, text, **kwargs):
         """
         Constructor.
 

@@ -29,7 +29,7 @@ class InvalidPythonLaunchFileError(Exception):
     ...
 
 
-def load_python_launch_file_as_module(python_launch_file_path: Text) -> ModuleType:
+def load_python_launch_file_as_module(python_launch_file_path):
     """Load a given Python launch file (by path) as a Python module."""
     loader = SourceFileLoader('python_launch_file', python_launch_file_path)
     spec = spec_from_loader(loader.name, loader)
@@ -39,8 +39,8 @@ def load_python_launch_file_as_module(python_launch_file_path: Text) -> ModuleTy
 
 
 def get_launch_description_from_python_launch_file(
-    python_launch_file_path: Text
-) -> LaunchDescription:
+    python_launch_file_path
+):
     """
     Load a given Python launch file (by path), and return the launch description from it.
 

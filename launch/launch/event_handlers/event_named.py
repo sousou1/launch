@@ -20,6 +20,6 @@ from typing import Text
 from ..event import Event
 
 
-def event_named(name: Text) -> Callable[[Event], bool]:
+def event_named(name):
     """Generate a lambda that compares the given name to an event's name given to the lambda."""
     return lambda event: event.name == name

@@ -31,19 +31,19 @@ class UnsetEnvironmentVariable(Action):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
+        name,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = normalize_to_list_of_substitutions(name)
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for the name of the environment variable to be unset."""
         return self.__name
 
-    def execute(self, context: LaunchContext) -> None:
+    def execute(self, context):
         """Execute the action."""
         name = perform_substitutions(context, self.name)
         if name in os.environ:

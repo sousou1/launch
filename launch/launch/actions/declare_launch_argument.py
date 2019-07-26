@@ -72,12 +72,12 @@ class DeclareLaunchArgument(Action):
 
     def __init__(
         self,
-        name: Text,
+        name,
         *,
         default_value: Optional[SomeSubstitutionsType] = None,
-        description: Text = 'no description given',
+        description = 'no description given',
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = name
@@ -96,17 +96,17 @@ class DeclareLaunchArgument(Action):
         self._conditionally_included = False
 
     @property
-    def name(self) -> Text:
+    def name(self):
         """Getter for self.__name."""
         return self.__name
 
     @property
-    def default_value(self) -> Optional[List[Substitution]]:
+    def default_value(self):
         """Getter for self.__default_value."""
         return self.__default_value
 
     @property
-    def description(self) -> Text:
+    def description(self):
         """Getter for self.__description."""
         return self.__description
 

@@ -17,7 +17,7 @@
 import asyncio
 
 
-def create_future(loop: asyncio.AbstractEventLoop) -> asyncio.Future:
+def create_future(loop: asyncio.AbstractEventLoop):
     """
     Return a Future, using the loop if possible.
 

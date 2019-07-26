@@ -23,7 +23,7 @@ from ..substitution import Substitution
 class TextSubstitution(Substitution):
     """Substitution that wraps a single string text."""
 
-    def __init__(self, *, text: Text) -> None:
+    def __init__(self, *, text):
         """Constructor."""
         super().__init__()
 
@@ -35,14 +35,14 @@ class TextSubstitution(Substitution):
         self.__text = text
 
     @property
-    def text(self) -> Text:
+    def text(self):
         """Getter for text."""
         return self.__text
 
-    def describe(self) -> Text:
+    def describe(self):
         """Return a description of this substitution as a string."""
         return "'{}'".format(self.text)
 
-    def perform(self, context: LaunchContext) -> Text:
+    def perform(self, context):
         """Perform the substitution by returning the string itself."""
         return self.text

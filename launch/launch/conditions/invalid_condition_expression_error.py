@@ -24,10 +24,10 @@ class InvalidConditionExpressionError(ValueError):
 
     def __init__(
         self,
-        expression: str,
-        unexpanded_expression: List[Substitution],
-        valid_expressions: List[str]
-    ) -> None:
+        expression,
+        unexpanded_expression,
+        valid_expressions,
+    ):
         super().__init__(
             "invalid condition expression, expected one of [{}] but got '{}', expanded from '{}'"
             .format(

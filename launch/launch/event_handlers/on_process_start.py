@@ -46,11 +46,10 @@ class OnProcessStart(BaseEventHandler):
     def __init__(
         self,
         *,
-        target_action: 'ExecuteProcess' = None,
-        on_start: Union[SomeActionsType,
-                        Callable[[ProcessStarted, LaunchContext], Optional[SomeActionsType]]],
+        target_action = None,
+        on_start,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         from ..actions import ExecuteProcess  # noqa
         if not isinstance(target_action, (ExecuteProcess, type(None))):
@@ -84,7 +83,7 @@ class OnProcessStart(BaseEventHandler):
         else:
             raise TypeError('on_start with type {} not allowed'.format(repr(on_start)))
 
-    def handle(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """Handle the given event."""
         super().handle(event, context)
 
@@ -93,14 +92,14 @@ class OnProcessStart(BaseEventHandler):
         return self.__on_start(cast(ProcessStarted, event), context)
 
     @property
-    def handler_description(self) -> Text:
+    def handler_description(self):
         """Return the string description of the handler."""
         if self.__actions_on_start:
             return '<actions>'
         return '{}'.format(self.__on_start)
 
     @property
-    def matcher_description(self) -> Text:
+    def matcher_description(self):
         """Return the string description of the matcher."""
         if self.__target_action is None:
             return 'event == ProcessStarted'

@@ -31,12 +31,12 @@ from .utilities import is_a
 from .utilities import normalize_to_list_of_substitutions
 
 
-def indent(lines: List[Text], indention: Text = '    ') -> List[Text]:
+def indent(lines, indention = '    '):
     """Indent a list of strings and return them."""
     return ['{}{}'.format(indention, line) for line in lines]
 
 
-def tree_like_indent(lines: List[Text]) -> List[Text]:
+def tree_like_indent(lines):
     """Replace whitespace with "tree"-like indentation symbols."""
     result = []
     previous_first_non_whitespace = None
@@ -63,7 +63,7 @@ def tree_like_indent(lines: List[Text]) -> List[Text]:
     return result
 
 
-def format_entities(entities: List[LaunchDescriptionEntity]) -> List[Text]:
+def format_entities(entities):
     """Return a list of lines of text that represent of a list of LaunchDescriptionEntity's."""
     result = []
     for entity in entities:
@@ -74,13 +74,13 @@ def format_entities(entities: List[LaunchDescriptionEntity]) -> List[Text]:
     return result
 
 
-def format_substitutions(substitutions: SomeSubstitutionsType) -> Text:
+def format_substitutions(substitutions):
     """Return a text representation of some set of substitutions."""
     normalized_substitutions = normalize_to_list_of_substitutions(substitutions)
     return ' + '.join([sub.describe() for sub in normalized_substitutions])
 
 
-def format_event_handler(event_handler: EventHandler) -> List[Text]:
+def format_event_handler(event_handler):
     """Return a text representation of an event handler."""
     if hasattr(event_handler, 'describe'):
         # TODO(wjwwood): consider supporting mode complex descriptions of branching
@@ -92,7 +92,7 @@ def format_event_handler(event_handler: EventHandler) -> List[Text]:
         return ["EventHandler('{}')".format(hex(id(event_handler)))]
 
 
-def format_action(action: Action) -> List[Text]:
+def format_action(action):
     """Return a text representation of an action."""
     if is_a(action, LogInfo):
         return ['LogInfo({})'.format(format_substitutions(cast(LogInfo, action).msg))]
@@ -124,7 +124,7 @@ def format_action(action: Action) -> List[Text]:
 class LaunchIntrospector:
     """Provides an interface through which you can visit all entities of a LaunchDescription."""
 
-    def format_launch_description(self, launch_description: LaunchDescription) -> Text:
+    def format_launch_description(self, launch_description):
         """Return a string representation of a LaunchDescription."""
         result = '{}\n'.format(launch_description)
         entity_descriptions = format_entities(launch_description.entities)

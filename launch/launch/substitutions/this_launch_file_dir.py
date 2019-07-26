@@ -24,15 +24,15 @@ from ..substitution import Substitution
 class ThisLaunchFileDir(Substitution):
     """Substitution that returns the absolute path to the current launch file."""
 
-    def __init__(self) -> None:
+    def __init__(self):
         """Constructor."""
         super().__init__()
 
-    def describe(self) -> Text:
+    def describe(self):
         """Return a description of this substitution as a string."""
         return 'ThisLaunchFileDir()'
 
-    def perform(self, context: LaunchContext) -> Text:
+    def perform(self, context):
         """
         Perform the substitution by returning the path to the current launch file.
 

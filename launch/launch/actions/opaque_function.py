@@ -37,21 +37,21 @@ class OpaqueFunction(Action):
     .. code-block:: python
 
         def function(
-            context: LaunchContext,
+            context,
             *args,
             **kwargs
-        ) -> Optional[List[LaunchDescriptionEntity]]:
+        ):
             ...
 
     """
 
     def __init__(
         self, *,
-        function: Callable,
-        args: Optional[Iterable[Any]] = None,
-        kwargs: Optional[Dict[Text, Any]] = None,
+        function,
+        args = None,
+        kwargs: Optional = None,
         **left_over_kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**left_over_kwargs)
         if not callable(function):
@@ -69,6 +69,6 @@ class OpaqueFunction(Action):
         if kwargs is not None:
             self.__kwargs = kwargs
 
-    def execute(self, context: LaunchContext) -> Optional[List[Action]]:
+    def execute(self, context):
         """Execute the action."""
         return self.__function(context, *self.__args, **self.__kwargs)

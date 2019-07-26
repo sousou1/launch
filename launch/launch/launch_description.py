@@ -44,20 +44,20 @@ class LaunchDescription(LaunchDescriptionEntity):
 
     def __init__(
         self,
-        initial_entities: Optional[Iterable[LaunchDescriptionEntity]] = None,
-    ) -> None:
+        initial_entities = None,
+    ):
         """Constructor."""
         self.__entities = list(initial_entities) if initial_entities is not None else []
 
-    def visit(self, context: LaunchContext) -> Optional[List[LaunchDescriptionEntity]]:
+    def visit(self, context):
         """Override visit from LaunchDescriptionEntity to visit contained entities."""
         return self.__entities
 
-    def describe_sub_entities(self) -> List[LaunchDescriptionEntity]:
+    def describe_sub_entities(self):
         """Override describe_sub_entities from LaunchDescriptionEntity to return sub entities."""
         return self.__entities
 
-    def get_launch_arguments(self, conditional_inclusion=False) -> List[DeclareLaunchArgument]:
+    def get_launch_arguments(self, conditional_inclusion=False):
         """
         Return a list of :py:class:`launch.actions.DeclareLaunchArgument` actions.
 
@@ -113,14 +113,14 @@ class LaunchDescription(LaunchDescriptionEntity):
         return declared_launch_arguments
 
     @property
-    def entities(self) -> List[LaunchDescriptionEntity]:
+    def entities(self):
         """Getter for the entities."""
         return self.__entities
 
-    def add_entity(self, entity: LaunchDescriptionEntity) -> None:
+    def add_entity(self, entity: LaunchDescriptionEntity):
         """Add an entity to the LaunchDescription."""
         self.__entities.append(entity)
 
-    def add_action(self, action: Action) -> None:
+    def add_action(self, action):
         """Add an action to the LaunchDescription."""
         self.add_entity(action)

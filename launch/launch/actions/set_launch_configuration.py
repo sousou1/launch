@@ -35,26 +35,26 @@ class SetLaunchConfiguration(Action):
 
     def __init__(
         self,
-        name: SomeSubstitutionsType,
-        value: SomeSubstitutionsType,
+        name,
+        value,
         **kwargs
-    ) -> None:
+    ):
         """Constructor."""
         super().__init__(**kwargs)
         self.__name = normalize_to_list_of_substitutions(name)
         self.__value = normalize_to_list_of_substitutions(value)
 
     @property
-    def name(self) -> List[Substitution]:
+    def name(self):
         """Getter for self.__name."""
         return self.__name
 
     @property
-    def value(self) -> List[Substitution]:
+    def value(self):
         """Getter for self.__value."""
         return self.__value
 
-    def execute(self, context: LaunchContext):
+    def execute(self, context):
         """Execute the action."""
         context.launch_configurations[perform_substitutions(context, self.name)] = \
             perform_substitutions(context, self.value)

@@ -42,7 +42,7 @@ class OnExecutionComplete(EventHandler):
         target_action: Optional['Action'] = None,
         on_completion: SomeActionsType,
         **kwargs
-    ) -> None:
+    ):
         """Overload which takes just actions."""
         ...
 
@@ -53,11 +53,11 @@ class OnExecutionComplete(EventHandler):
         target_action: Optional['Action'] = None,
         on_completion: Callable[[int], Optional[SomeActionsType]],
         **kwargs
-    ) -> None:
+    ):
         """Overload which takes a callable to handle completion."""
         ...
 
-    def __init__(self, *, target_action=None, on_completion, **kwargs) -> None:  # noqa: F811
+    def __init__(self, *, target_action=None, on_completion, **kwargs):  # noqa: F811
         """Constructor."""
         from ..action import Action  # noqa
         if not isinstance(target_action, (Action, type(None))):
@@ -98,12 +98,12 @@ class OnExecutionComplete(EventHandler):
             # Then return it from a lambda and use that as the self.__on_completion callback.
             self.__on_completion = lambda event, context: self.__actions_on_completion
 
-    def handle(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def handle(self, event, context):
         """Handle the given event."""
         return self.__on_completion(cast(ExecutionComplete, event), context)
 
     @property
-    def handler_description(self) -> Text:
+    def handler_description(self):
         """Return the string description of the handler."""
         # TODO(jacobperron): revisit how to describe known actions that are passed in.
         #                    It would be nice if the parent class could output their description
@@ -113,7 +113,7 @@ class OnExecutionComplete(EventHandler):
         return '{}'.format(self.__on_completion)
 
     @property
-    def matcher_description(self) -> Text:
+    def matcher_description(self):
         """Return the string description of the matcher."""
         if self.__target_action is None:
             return 'event == ExecutionComplete'

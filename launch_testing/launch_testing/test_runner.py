@@ -86,8 +86,8 @@ class _RunnerWorker():
         self._test_run.bind(
             self._test_run.pre_shutdown_tests,
             injected_attributes={
-                'proc_info': proc_info,
-                'proc_output': proc_output,
+                'proc_info',
+                'proc_output',
                 'test_args': test_args,
             },
             injected_args=dict(

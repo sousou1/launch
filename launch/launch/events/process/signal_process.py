@@ -35,8 +35,8 @@ class SignalProcess(ProcessTargetedEvent):
     def __init__(
         self, *,
         signal_number: Union[Text, signal_module.Signals],
-        process_matcher: Callable[['ExecuteProcess'], bool]
-    ) -> None:
+        process_matcher
+    ):
         """
         Constructor.
 
@@ -56,12 +56,12 @@ class SignalProcess(ProcessTargetedEvent):
         self.__signal = signal_number
 
     @property
-    def signal(self) -> Union[Text, signal_module.Signals]:
+    def signal(self):
         """Getter for signal, it will be 'SIGKILL' or match something from the signal module."""
         return self.__signal
 
     @property
-    def signal_name(self) -> Text:
+    def signal_name(self):
         """
         Getter for signal_name.
 

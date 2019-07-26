@@ -91,15 +91,15 @@ class ExecuteProcess(Action):
         sigkill_timeout: SomeSubstitutionsType = LaunchConfiguration(
             'sigkill_timeout', default=5),
         prefix: Optional[SomeSubstitutionsType] = None,
-        output: Text = 'log',
-        output_format: Text = '[{this.name}] {line}',
+        output = 'log',
+        output_format = '[{this.name}] {line}',
         log_cmd: bool = False,
         on_exit: Optional[Union[
             SomeActionsType,
             Callable[[ProcessExited, LaunchContext], Optional[SomeActionsType]]
         ]] = None,
         **kwargs
-    ) -> None:
+    ):
         """
         Construct an ExecuteProcess action.
 
@@ -196,7 +196,7 @@ class ExecuteProcess(Action):
                 self.__env.append((
                     normalize_to_list_of_substitutions(key),
                     normalize_to_list_of_substitutions(value)))
-        self.__additional_env: Optional[List[Tuple[List[Substitution], List[Substitution]]]] = None
+        self.__additional_env = None
         if additional_env is not None:
             self.__additional_env = []
             for key, value in additional_env.items():
@@ -257,13 +257,13 @@ class ExecuteProcess(Action):
     def __on_shutdown_process_event(
         self,
         context: LaunchContext
-    ) -> Optional[LaunchDescription]:
+    ):
         return self._shutdown_process(context, send_sigint=True)
 
     def __on_signal_process_event(
         self,
         context: LaunchContext
-    ) -> Optional[LaunchDescription]:
+    ):
         typed_event = cast(SignalProcess, context.locals.event)
         if not typed_event.process_matcher(self):
             # this event whas not intended for this process
@@ -307,7 +307,7 @@ class ExecuteProcess(Action):
     def __on_process_stdin(
         self,
         event: ProcessIO
-    ) -> Optional[SomeActionsType]:
+    ):
         self.__logger.warning(
             "in ExecuteProcess('{}').__on_process_stdin_event()".format(id(self)),
         )
@@ -316,7 +316,7 @@ class ExecuteProcess(Action):
 
     def __on_process_stdout(
         self, event: ProcessIO
-    ) -> Optional[SomeActionsType]:
+    ):
         self.__stdout_buffer.write(event.text.decode(errors='replace'))
         self.__stdout_buffer.seek(0)
         last_line = None
@@ -335,7 +335,7 @@ class ExecuteProcess(Action):
 
     def __on_process_stderr(
         self, event: ProcessIO
-    ) -> Optional[SomeActionsType]:
+    ):
         self.__stderr_buffer.write(event.text.decode(errors='replace'))
         self.__stderr_buffer.seek(0)
         last_line = None
@@ -366,13 +366,13 @@ class ExecuteProcess(Action):
                     self.__output_format.format(line=line, this=self)
                 )
 
-    def __on_shutdown(self, event: Event, context: LaunchContext) -> Optional[SomeActionsType]:
+    def __on_shutdown(self, event, context: LaunchContext):
         return self._shutdown_process(
             context,
             send_sigint=(not cast(Shutdown, event).due_to_sigint),
         )
 
-    def __get_shutdown_timer_actions(self) -> List[Action]:
+    def __get_shutdown_timer_actions(self):
         base_msg = \
             "process[{}] failed to terminate '{}' seconds after receiving '{}', escalating to '{}'"
 
@@ -442,11 +442,11 @@ class ExecuteProcess(Action):
     class __ProcessProtocol(AsyncSubprocessProtocol):
         def __init__(
             self,
-            action: 'ExecuteProcess',
-            context: LaunchContext,
-            process_event_args: Dict,
+            action,
+            context,
+            process_event_args,
             **kwargs
-        ) -> None:
+        ):
             super().__init__(**kwargs)
             self.__context = context
             self.__action = action
@@ -461,10 +461,10 @@ class ExecuteProcess(Action):
             self.__process_event_args['pid'] = transport.get_pid()
             self.__action._subprocess_transport = transport
 
-        def on_stdout_received(self, data: bytes) -> None:
+        def on_stdout_received(self, data: bytes):
             self.__context.emit_event_sync(ProcessStdout(text=data, **self.__process_event_args))
 
-        def on_stderr_received(self, data: bytes) -> None:
+        def on_stderr_received(self, data: bytes):
             self.__context.emit_event_sync(ProcessStderr(text=data, **self.__process_event_args))
 
     def __expand_substitutions(self, context):
@@ -502,7 +502,7 @@ class ExecuteProcess(Action):
             # pid is added to the dictionary in the connection_made() method of the protocol.
         }
 
-    async def __execute_process(self, context: LaunchContext) -> None:
+    async def __execute_process(self, context: LaunchContext):
         process_event_args = self.__process_event_args
         if process_event_args is None:
             raise RuntimeError('process_event_args unexpectedly None')
@@ -546,7 +546,7 @@ class ExecuteProcess(Action):
         await context.emit_event(ProcessExited(returncode=returncode, **process_event_args))
         self.__cleanup()
 
-    def execute(self, context: LaunchContext) -> Optional[List['Action']]:
+    def execute(self, context: LaunchContext):
         """
         Execute the action.
 
@@ -604,7 +604,7 @@ class ExecuteProcess(Action):
             raise
         return None
 
-    def get_asyncio_future(self) -> Optional[asyncio.Future]:
+    def get_asyncio_future(self):
         """Return an asyncio Future, used to let the launch system know when we're done."""
         return self.__completed_future
 
